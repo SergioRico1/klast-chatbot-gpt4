@@ -5,6 +5,7 @@ import { Message } from '@/types/chat';
 import { fetchEventSource } from '@microsoft/fetch-event-source';
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm'
 import LoadingDots from '@/components/ui/LoadingDots';
 import { Document } from 'langchain/document';
 import {
@@ -27,7 +28,7 @@ export default function Home() {
   }>({
     messages: [
       {
-        message: 'Hi, what would you like to learn about this legal case?',
+        message: '¡Hola!, ¿En qué puedo ayudarte hoy?',
         type: 'apiMessage',
       },
     ],
@@ -164,9 +165,6 @@ export default function Home() {
     <>
       <Layout>
         <div className="mx-auto flex flex-col gap-4">
-          <h1 className="text-2xl font-bold leading-[1.1] tracking-tighter text-center">
-            Chat With Your Legal Docs
-          </h1>
           <main className={styles.main}>
             <div className={styles.cloud}>
               <div ref={messageListRef} className={styles.messagelist}>
@@ -178,8 +176,8 @@ export default function Home() {
                       <Image
                         src="/bot-image.png"
                         alt="AI"
-                        width="40"
-                        height="40"
+                        width="32"
+                        height="32"
                         className={styles.boticon}
                         priority
                       />
@@ -190,8 +188,8 @@ export default function Home() {
                       <Image
                         src="/usericon.png"
                         alt="Me"
-                        width="30"
-                        height="30"
+                        width="32"
+                        height="32"
                         className={styles.usericon}
                         priority
                       />
@@ -207,7 +205,7 @@ export default function Home() {
                       <div key={`chatMessage-${index}`} className={className}>
                         {icon}
                         <div className={styles.markdownanswer}>
-                          <ReactMarkdown linkTarget="_blank">
+                          <ReactMarkdown linkTarget="_blank" remarkPlugins={[remarkGfm]}>
                             {message.message}
                           </ReactMarkdown>
                         </div>
@@ -216,7 +214,7 @@ export default function Home() {
                         <div
                           className="p-5"
                           key={`sourceDocsAccordion-${index}`}
-                        >
+                          style={{display:'none'}}>
                           <Accordion
                             type="single"
                             collapsible
@@ -281,8 +279,8 @@ export default function Home() {
                     name="userInput"
                     placeholder={
                       loading
-                        ? 'Waiting for response...'
-                        : 'What is this legal case about?'
+                        ? 'Pensando la respuesta...'
+                        : 'Escribe tu pregunta...'
                     }
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
@@ -319,8 +317,8 @@ export default function Home() {
           </main>
         </div>
         <footer className="m-auto p-4">
-          <a href="https://twitter.com/mayowaoshin">
-            Powered by LangChainAI. Demo built by Mayo (Twitter: @mayowaoshin).
+          <a href="https://www.linkedin.com/in/sricocrespo/">
+            Creado por Sergio Rico | MIT License
           </a>
         </footer>
       </Layout>
