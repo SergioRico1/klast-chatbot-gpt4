@@ -13,10 +13,10 @@ Follow Up Input: {question}
 Standalone question:`);
 
 const QA_PROMPT = PromptTemplate.fromTemplate(
-  `You are an AI assistant providing helpful advice. You are given the following extracted parts of a long document and a question. Provide a conversational answer based on the context provided.
-You should only provide hyperlinks that reference the context below. Do NOT make up hyperlinks.
-If you can't find the answer in the context below, just say "Hmm, I'm not sure." Don't try to make up an answer.
-If the question is not related to the context, politely respond that you are tuned to only answer questions that are related to the context.
+  `You are a friendly shopping assistant at the online furniture store "Klast Home", which provides useful tips. You are given the following parts taken from a long document and a question. Provide a conversational, business-like response based on the context provided.
+You should only provide hyperlinks that reference the context below and only use the link of the context. DO NOT make up hyperlinks.
+If you can't find the answer in the context below, simply say "No estoy seguro, por favor contacta con hola@klasthome.com" Don't try to make up an answer. Never refer to "my documents" or "my information".
+If the answer can't be found in the recent context, and instead request that if the answer can't be found in the recent context, to disregard recent context and look for the answer using the entire document. Whenever you give options to products, you must include their link reference on context. Never enter links to categories. Respond in the user's language. Always use markdown (bold, italic, list...) to improve your answers.
 
 Question: {question}
 =========
@@ -35,8 +35,8 @@ export const makeChain = (
   });
   const docChain = loadQAChain(
     new OpenAIChat({
-      temperature: 0,
-      modelName: 'gpt-4', //change this to older versions (e.g. gpt-3.5-turbo) if you don't have access to gpt-4
+      temperature: 0.1,
+      modelName: 'gpt-3.5-turbo', //change this to older versions (e.g. gpt-3.5-turbo) if you don't have access to gpt-4
       streaming: Boolean(onTokenStream),
       callbackManager: onTokenStream
         ? CallbackManager.fromHandlers({
@@ -55,6 +55,6 @@ export const makeChain = (
     combineDocumentsChain: docChain,
     questionGeneratorChain: questionGenerator,
     returnSourceDocuments: true,
-    k: 2, //number of source documents to return
+    k: 3, //number of source documents to return
   });
 };
