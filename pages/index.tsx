@@ -317,9 +317,6 @@ export default function Home() {
           </main>
         </div>
         <footer className="m-auto p-4">
-          <a href="https://www.linkedin.com/in/sricocrespo/">
-            Creado por Sergio Rico | MIT License
-          </a>
         </footer>
       </Layout>
     </>
