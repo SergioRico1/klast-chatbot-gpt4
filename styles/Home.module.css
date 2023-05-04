@@ -269,7 +269,7 @@
     height: 33rem;
   }
   .textarea {
-    width: 22rem;
+    width: 100%;
   }
   .topnav {
     border: 1px solid black;
