@@ -261,7 +261,7 @@
 /* Mobile optimization */
 @media (max-width: 600px) {
   .main {
-    max-height: 90vh;
+    height: 75vh;
   }
 
   .cloud {
