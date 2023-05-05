@@ -4,6 +4,8 @@
   color: #2d3a47;
   background-color: #FFF;
   font-size: 12px;
+  display: flex;
+  flex-direction: row;
 }
 
 .main {
